@@ -19,6 +19,8 @@ where a.ManagerId=b.Id	 and a.salary>=b.salary;
 
 --#182. Duplicate Emails
 Select Distinct a.Email 
+From Person AS a,Person AS b
+where a.Id != b.Id and a.Email = b.Email
 
 --#183. Customers Who Never Order
 select customers.name as 'Customers'
@@ -28,5 +30,17 @@ where customers.id not in
     select customerid from orders
 );
 
-From Person AS a,Person AS b
-where a.Id != b.Id and a.Email = b.Email
+--#196. Delete Duplicate Emails
+select a.Id,a.Email
+FROM Person as a, Person as b
+WHERE a.Email =b.Email and a.Id < b.Id
+ORDER BY a.Id ASC
+
+--#197. Rising Temperature
+SELECT
+    weather.id AS 'Id'
+FROM
+    weather
+        JOIN
+    weather w ON DATEDIFF(weather.recordDate, w.recordDate) = 1
+        AND weather.Temperature > w.Temperature
