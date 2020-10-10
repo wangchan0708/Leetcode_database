@@ -44,3 +44,15 @@ FROM
         JOIN
     weather w ON DATEDIFF(weather.recordDate, w.recordDate) = 1
         AND weather.Temperature > w.Temperature
+
+--#595. Big Countries
+SELECT w.name, w.population, w.area
+FROM World AS w
+WHERE (w.area>3000000) OR (w.population> 25000000)
+
+--#596. Classes More Than 5 Students
+SELECT courses.class
+FROM 
+    courses 
+GROUP BY courses.class
+HAVING COUNT(DISTINCT student)>=5
