@@ -56,3 +56,18 @@ FROM
     courses 
 GROUP BY courses.class
 HAVING COUNT(DISTINCT student)>=5
+
+--#620 Not Boring Movies
+SELECT *
+From cinema
+WHERE mod(cinema.id,2)=1 AND cinema.description !="boring"
+Order BY cinema.rating DESC
+
+--# 626 Exchange Seats 
+SELECT
+    s1.id, COALESCE(s2.student, s1.student) AS student
+FROM
+    seat s1
+        LEFT JOIN
+    seat s2 ON ((s1.id + 1) ^ 1) - 1 = s2.id
+ORDER BY s1.id;
